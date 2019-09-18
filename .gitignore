@@ -18,3 +18,6 @@ webpack-assets.json
 .DS_Store
 .idea
 .history
+
+#test
+.nyc_output
