@@ -121,7 +121,7 @@ describe('compareHTML + convertHTMLError', function () {
     const htmlMaster = `<a href="site.net">a</a>`;
     const expected = {
       id: "test.errors.common.wrongAttribute",
-      values: { attr: 'href', line: '1', tagName: "a", valueExpected: "site.net", valueReal: "otherSite.net" }
+      values: { attr: 'href', line: '1', tagName: "a", valueExpected: "site.n...", valueReal: "otherS..." }
     };
     const result = convertHTMLError(compareHTML(html, htmlMaster));
     assert.deepEqual(result, expected);
@@ -241,7 +241,7 @@ describe('compareHTML + convertHTMLError', function () {
     const htmlMaster = `</p>`;
     const expected = {
       id: "test.errors.common.expectedTag",
-      values: { line: '1', tagName: "/p" }
+      values: { line: '2', tagName: "/p" }
     };
     const result = convertHTMLError(compareHTML(html, htmlMaster));
     assert.deepEqual(result, expected);
@@ -271,7 +271,7 @@ describe('compareHTML + convertHTMLError', function () {
     const htmlMaster = `<span>`;
     const expected = {
       id: "test.errors.common.expectedTag",
-      values: { line: '1', tagName: "span" }
+      values: { line: '2', tagName: "span" }
     };
     const result = convertHTMLError(compareHTML(html, htmlMaster));
     assert.deepEqual(result, expected);
@@ -342,6 +342,28 @@ describe('compareHTML + convertHTMLError', function () {
     const expected = {
       id: "test.errors.common.expectedTagRealText",
       values: { line: '1', text: "text", tagName: "!DOCTYPE html" }
+    };
+    const result = convertHTMLError(compareHTML(html, htmlMaster));
+    assert.deepEqual(result, expected);
+  });
+  it('template message for trainer', function () {
+    const html = ``;
+    const htmlMaster = `<!DOCTYPE html>`;
+    const expected = {
+      id: "test.errors.common.expectedTag",
+      values: { line: '1', tagName: "!DOCTYPE html" }
+    };
+    const result = convertHTMLError(compareHTML(html, htmlMaster));
+    assert.deepEqual(result, expected);
+  });
+  it('template message for trainer', function () {
+    const html = `<script>
+    let k = 0;</script>`;
+    const htmlMaster = `<script>let j = 0;</script>`;
+    const expected = {
+      id: "test.errors.common.compareJS", values: {
+        expected: "j", line: "2", real: "k"
+      }
     };
     const result = convertHTMLError(compareHTML(html, htmlMaster));
     assert.deepEqual(result, expected);

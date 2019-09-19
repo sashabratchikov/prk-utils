@@ -9,9 +9,9 @@ const checkClass = compareHTMLrewire.__get__('checkClass');
 const checkHref = compareHTMLrewire.__get__('checkHref');
 const checkAttributes = compareHTMLrewire.__get__('checkAttributes');
 const cmpTokens = compareHTMLrewire.__get__('cmpTokens');
-const getStyles = compareHTMLrewire.__get__('getStyles');
+const getTagContent = compareHTMLrewire.__get__('getTagContent');
 const checkStyleAttribute = compareHTMLrewire.__get__('checkStyleAttribute');
-const checkStyle = compareHTMLrewire.__get__('checkStyle');
+const checkTagContent = compareHTMLrewire.__get__('checkTagContent');
 
 describe('checkChar', function () {
   it('should return {result:true}', function () {
@@ -410,9 +410,9 @@ describe('cmpTokens', function () {
     assert.deepEqual(result, expected);
   });
 });
-describe('getStyles', function () {
+describe('getTagContent', function () {
   it('should return cssString', function () {
-    const styles = getStyles('<style></style><style>div{}</style>');
+    const styles = getTagContent('<style></style><style>div{}</style>', 'style');
     const expected = [{ line: 1, text: 'div{}' }, { line: 1, text: '' }];
     assert.deepEqual(styles, expected);
   });
@@ -447,11 +447,12 @@ describe('checkStyleAttribute', function () {
     assert.deepEqual(result, expected);
   });
 });
-describe('checkStyle', function () {
+describe('checkTagContent, style', function () {
   it('should return {result:true}', function () {
-    const result = checkStyle(
+    const result = checkTagContent(
       '<style></style><style>div{}</style>',
-      '<style></style><style>div{}</style>'
+      '<style></style><style>div{}</style>',
+      'style'
     );
     const expected = {
       result: true
@@ -459,9 +460,10 @@ describe('checkStyle', function () {
     assert.deepEqual(result, expected);
   });
   it('should return {result:false}', function () {
-    const result = checkStyle(
+    const result = checkTagContent(
       '<style></style><style>div{color:black}</style>',
-      '<style></style><style>div{}</style>'
+      '<style></style><style>div{}</style>',
+      'style'
     );
     const expected = {
       result: false,
@@ -474,13 +476,38 @@ describe('checkStyle', function () {
     assert.deepEqual(result, expected);
   });
   it('should return {result:false}', function () {
-    const result = checkStyle(
+    const result = checkTagContent(
       '<style></style><style>div{{}}</style>',
-      '<style></style><style>div{}</style>'
+      '<style></style><style>div{}</style>',
+      'style'
     );
     const expected = {
       result: false,
       errors: [{ code: "SyntaxError", line: 1 }]
+    };
+    assert.deepEqual(result, expected);
+  });
+});
+describe('checkTagContent, script', function () {
+  it('should return {result:true}', function () {
+    const result = checkTagContent(
+      '<script></script><script>let k = 0;</script>',
+      '<script></script><script>let k = 0;</script>',
+      'script'
+    );
+    const expected = {
+      result: true
+    };
+    assert.deepEqual(result, expected);
+  });
+  it('should return {result:true}', function () {
+    const result = checkTagContent(
+      '<pre>let k = 0;</pre>',
+      '<pre>let k;</pre>',
+      'pre'
+    );
+    const expected = {
+      result: true
     };
     assert.deepEqual(result, expected);
   });
