@@ -105,7 +105,7 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/index.html';
     fs.copyFileSync('./test/testFiles/1/index.html', indexFile);
-    const answers = [{ "content": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Я просто код</title>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style>\n    h1 {\n      font-size: 90px;\n    }\n\n    h5 {\n\n    }\n\n    a {\n\n    }\n  </style>\n</head>\n<body>\n  <h1>Я бы</h1>\n  <h2>обнял</h2>\n  <h3>тебя</h3>\n  <h4>— но —</h4>\n  <h5 style=\"font-style: italic; font-size: 30px;\">я просто</h5>\n  <p><a href=\"http://embrace.t-radya.com/\" target=\"_blank\" style=\"color: steelblue; font-size: 20px;\">код</a></p>\n  <div align=\"center\"><img src=\"https://pictures.s3.yandex.net/code.gif\" alt=\"мой код\" width=\"512\"></div>\n</body>\n</html>\n", "name": indexFile, "language": "html" }];
+    const answers = [{ content: "<!DOCTYPE html>\n<html>\n<head>\n  <title>Я просто код</title>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style>\n    h1 {\n      font-size: 90px;\n    }\n\n    h5 {\n\n    }\n\n    a {\n\n    }\n  </style>\n</head>\n<body>\n  <h1>Я бы</h1>\n  <h2>обнял</h2>\n  <h3>тебя</h3>\n  <h4>— но —</h4>\n  <h5 style=\"font-style: italic; font-size: 30px;\">я просто</h5>\n  <p><a href=\"http://embrace.t-radya.com/\" target=\"_blank\" style=\"color: steelblue; font-size: 20px;\">код</a></p>\n  <div align=\"center\"><img src=\"https://pictures.s3.yandex.net/code.gif\" alt=\"мой код\" width=\"512\"></div>\n</body>\n</html>\n", name: indexFile, fullName: indexFile, language: "html" }];
     const expected = [];
     index.checkFiles(answers, errors);
     assert.deepEqual(errors, expected);
@@ -114,7 +114,7 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/index.html';
     fs.copyFileSync('./test/testFiles/2/index.html', indexFile);
-    const answers = [{ "content": "", "name": indexFile, "language": "wrong" }];
+    const answers = [{ content: "", name: indexFile, fullName: indexFile, language: "wrong" }];
     const expected = [];
     index.checkFiles(answers, errors);
     assert.deepEqual(errors, expected);
@@ -123,7 +123,7 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/index.html';
     fs.copyFileSync('./test/testFiles/3/index.html', indexFile);
-    const answers = [{ "content": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Я просто код</title>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style>\n    h1 {\n      font-size: 90px;\n    }\n\n    h5 {\n\n     font-style: italic;\n     font-size: 30px;\n}\n\n    a {\n\n    }\n  </style>\n</head>\n<body>\n  <h1>Я бы</h1>\n  <h2>обнял</h2>\n  <h3>тебя</h3>\n  <h4>— но —</h4>\n  <h5>я просто</h5>\n  <p><a href=\"http://embrace.t-radya.com/\" target=\"_blank\" style=\"color: steelblue; font-size: 20px;\">код</a></p>\n  <div align=\"center\"><img src=\"https://pictures.s3.yandex.net/code.gif\" alt=\"мой код\" width=\"512\"></div>\n</body>\n</html>\n", "name": indexFile, "language": "html" }];
+    const answers = [{ content: "<!DOCTYPE html>\n<html>\n<head>\n  <title>Я просто код</title>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <style>\n    h1 {\n      font-size: 90px;\n    }\n\n    h5 {\n\n     font-style: italic;\n     font-size: 30px;\n}\n\n    a {\n\n    }\n  </style>\n</head>\n<body>\n  <h1>Я бы</h1>\n  <h2>обнял</h2>\n  <h3>тебя</h3>\n  <h4>— но —</h4>\n  <h5>я просто</h5>\n  <p><a href=\"http://embrace.t-radya.com/\" target=\"_blank\" style=\"color: steelblue; font-size: 20px;\">код</a></p>\n  <div align=\"center\"><img src=\"https://pictures.s3.yandex.net/code.gif\" alt=\"мой код\" width=\"512\"></div>\n</body>\n</html>\n", name: indexFile, fullName: indexFile, language: "html" }];
     const expected = [{
       id: "test.errors.common.redundantAttribute", values: {
         attr: "style", line: "24", tagName: "h5", file: indexFile
@@ -136,7 +136,7 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/style.css';
     fs.copyFileSync('./test/testFiles/4/style.css', indexFile);
-    const answers = [{ "content": "h1 {\n  font-size: 90px;\n  font-family: 'Playfair Display';\n}\n\nh2 {\n  font-family: 'Pacifico';\n  font-size: 70px;\n}\n\nh3 {\n  font-family: 'Prosto One';\n  font-size: 50px;\n}\n\nh4 {\n  font-family: 'Alegreya Sans SC';\n  font-size: 40px;\n}\n\nh5 {\n  font-style: italic;\n  font-size: 30px;\n  font-family: 'Arial';\n}\n\na {\n  color: steelblue;\n  font-size: 20px;\n}\n\ndiv {\n  text-align: center;\n}\n\nimg {\n  width: 512px;\n}\n\np {\n  font-family: 'PT Mono';\n  font-size: 20px;\n}\n", "language": "css", "name": indexFile }];
+    const answers = [{ content: "h1 {\n  font-size: 90px;\n  font-family: 'Playfair Display';\n}\n\nh2 {\n  font-family: 'Pacifico';\n  font-size: 70px;\n}\n\nh3 {\n  font-family: 'Prosto One';\n  font-size: 50px;\n}\n\nh4 {\n  font-family: 'Alegreya Sans SC';\n  font-size: 40px;\n}\n\nh5 {\n  font-style: italic;\n  font-size: 30px;\n  font-family: 'Arial';\n}\n\na {\n  color: steelblue;\n  font-size: 20px;\n}\n\ndiv {\n  text-align: center;\n}\n\nimg {\n  width: 512px;\n}\n\np {\n  font-family: 'PT Mono';\n  font-size: 20px;\n}\n", language: "css", name: indexFile, fullName: indexFile }];
     const expected = [];
     index.checkFiles(answers, errors);
     assert.deepEqual(errors, expected);
@@ -145,7 +145,7 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/style.css';
     fs.copyFileSync('./test/testFiles/5/style.css', indexFile);
-    const answers = [{ "content": "h1 {\n  font-size: 90px;\n  font-family: 'Playfair Display';\n}\n\nh2 {\n  font-family: 'Pacifico';\n  font-size: 70px;\n  color: red;\n}\n\nh3 {\n  font-family: 'Prosto One';\n  font-size: 50px;\n}\n\nh4 {\n  font-family: 'Alegreya Sans SC';\n  font-size: 40px;\n}\n\nh5 {\n  font-style: italic;\n  font-size: 30px;\n  font-family: 'Arial';\n}\n\na {\n  color: steelblue;\n  font-size: 20px;\n}\n\ndiv {\n  text-align: center;\n}\n\nimg {\n  width: 512px;\n}\n\np {\n  font-family: 'PT Mono';\n  font-size: 20px;\n}\n", "language": "css", "name": indexFile }];
+    const answers = [{ content: "h1 {\n  font-size: 90px;\n  font-family: 'Playfair Display';\n}\n\nh2 {\n  font-family: 'Pacifico';\n  font-size: 70px;\n  color: red;\n}\n\nh3 {\n  font-family: 'Prosto One';\n  font-size: 50px;\n}\n\nh4 {\n  font-family: 'Alegreya Sans SC';\n  font-size: 40px;\n}\n\nh5 {\n  font-style: italic;\n  font-size: 30px;\n  font-family: 'Arial';\n}\n\na {\n  color: steelblue;\n  font-size: 20px;\n}\n\ndiv {\n  text-align: center;\n}\n\nimg {\n  width: 512px;\n}\n\np {\n  font-family: 'PT Mono';\n  font-size: 20px;\n}\n", language: "css", name: indexFile, fullName: indexFile }];
     const expected = [{
       id: "test.errors.common.compareErrorNoProperty", values: {
         property: "color", selector: "h2", file: indexFile
@@ -158,7 +158,7 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/script.js';
     fs.copyFileSync('./test/testFiles/6/script.js', indexFile);
-    const answers = [{ "content": "const k;", "language": "javascript", "name": indexFile }];
+    const answers = [{ content: "const k;", language: "javascript", name: indexFile, fullName: indexFile }];
     const expected = [{
       id: "test.errors.common.compareJS", values: {
         line: 1, expected: "const", real: "let", file: indexFile
@@ -170,10 +170,10 @@ describe('checkFiles', function () {
   it('should change array', function () {
     const errors = [];
     const indexFile = './tmp/script2.js';
-    const answers = [{ "content": "const k;", "language": "javascript", "name": indexFile }];
+    const answers = [{ content: "const k;", language: "javascript", name: './script2.js', fullName: indexFile }];
     const expected = [{
       id: "test.errors.common.noFile", values: {
-        file: indexFile
+        file: './script2.js'
       }
     }];
     index.checkFiles(answers, errors);
