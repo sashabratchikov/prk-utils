@@ -158,10 +158,10 @@ describe('checkFiles', function () {
     const errors = [];
     const indexFile = './tmp/script.js';
     fs.copyFileSync('./test/testFiles/6/script.js', indexFile);
-    const answers = [{ content: "const k;", language: "javascript", name: indexFile, fullName: indexFile }];
+    const answers = [{ content: "const k='0';", language: "javascript", name: indexFile, fullName: indexFile }];
     const expected = [{
       id: "test.errors.common.compareJS", values: {
-        line: 1, expected: "const", real: "let", file: indexFile
+        line: 1, expected: "'0'", real: "''", file: indexFile
       }
     }];
     index.checkFiles(answers, errors);
