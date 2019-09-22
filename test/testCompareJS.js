@@ -60,4 +60,12 @@ describe('compareJS', function () {
     }];
     assert.deepEqual(errors, expected);
   });
+  it('should change array', function () {
+    const errors = [];
+    compareJS('const 0k', 'const k=`1`', errors);
+    const expected = [{
+      id: "test.errors.common.LexicalErrorJS", values: { line: 1 }
+    }];
+    assert.deepEqual(errors, expected);
+  });
 });
