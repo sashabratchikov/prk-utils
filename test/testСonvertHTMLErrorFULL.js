@@ -121,7 +121,7 @@ describe('compareHTML + convertHTMLError', function () {
     const htmlMaster = `<a href="site.net">a</a>`;
     const expected = {
       id: "test.errors.common.wrongAttribute",
-      values: { attr: 'href', line: '1', tagName: "a", valueExpected: "site.n...", valueReal: "otherS..." }
+      values: { attr: 'href', line: '1', tagName: "a", valueExpected: "site.net", valueReal: "otherSite.net" }
     };
     const result = convertHTMLError(compareHTML(html, htmlMaster));
     assert.deepEqual(result, expected);
@@ -231,7 +231,7 @@ describe('compareHTML + convertHTMLError', function () {
     const htmlMaster = ``;
     const expected = {
       id: "test.errors.common.redundantText",
-      values: { line: '1', text: "longTextLongTextLong..." }
+      values: { line: '1', text: "longTextLongTextLongTextLongTe..." }
     };
     const result = convertHTMLError(compareHTML(html, htmlMaster));
     assert.deepEqual(result, expected);

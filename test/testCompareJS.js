@@ -55,7 +55,7 @@ describe('compareJS', function () {
       'const k="------------------------------------------\\"------------------------------------------"', errors);
     const expected = [{
       id: "test.errors.common.compareJS", values: {
-        expected: '"...---\\"--..."', line: 1, real: "'...---0--...'"
+        expected: '"...---------------\\"---------...', line: 1, real: "'...---------------0----------..."
       }
     }];
     assert.deepEqual(errors, expected);
