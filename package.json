@@ -18,6 +18,7 @@
     "espree": "^6.1.1",
     "esprima": "^4.0.1",
     "esquery": "^1.0.1",
+    "esquery-jsx": "^1.0.0",
     "parse5": "^5.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
