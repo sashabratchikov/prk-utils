@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "acorn": "^7.0.0",
     "bluebird": "^3.5.5",
@@ -23,6 +24,9 @@
     "esquery": "^1.0.1",
     "esquery-jsx": "^1.0.0",
     "parse5": "^5.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },

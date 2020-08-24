@@ -249,3 +249,12 @@ describe('jsxToJS', function () {
     });`);
   }).timeout(10_000);
 });
+describe('getReactTestRendererComponent', function () {
+  it('should return react component', function () {
+    const render = index.getReactTestRendererComponent('import App from "../test/testFiles/7/app.js"', '<App/>');
+    const json = render.toJSON();
+    expect(json[0].type).to.be.equal('h1');
+    expect(json[1].type).to.be.equal('button');
+    expect(json[2].type).to.be.equal('button');
+  });
+});
