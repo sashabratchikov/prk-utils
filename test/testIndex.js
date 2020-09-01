@@ -258,3 +258,9 @@ describe('getReactTestRendererComponent', function () {
     expect(json[2].type).to.be.equal('button');
   });
 });
+describe('tsToJS', function () {
+  it('should translate typescript to js', function () {
+    const js = index.tsToJS(`let k:number=5;`);
+    assert.include(js, 'let k = 5;');
+  }).timeout(10_000);
+});
